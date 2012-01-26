@@ -1,0 +1,35 @@
+<p>
+[% IF pager.previous_page %]
+<a href="[% c.req.uri_with( page => pager.first_page ) %]"><< Primeira</a>
+<a href="[% c.req.uri_with( page => pager.previous_page ) %]">< Anterior</a>
+[% ELSE %]
+<< Primeira < Anterior
+[% END %]
+
+[% FOREACH i IN [5, 4, 3, 2, 1] %]
+
+[% SET pagina = pager.current_page - i; IF pagina > 0 %]
+<a href="[% c.req.uri_with( page => pagina ) %]">[%  pagina %]</a>
+[% END %]
+
+[% END %]
+
+[% pager.current_page %]
+
+[% FOREACH i IN [1..5] %]
+
+[% SET pagina = pager.current_page + i; IF pagina <= pager.last_page %]
+<a href="[% c.req.uri_with( page => pagina ) %]">[%  pagina %]</a>
+[% END %]
+
+[% END %]
+
+[% IF pager.next_page %]
+<a href="[% c.req.uri_with( page => pager.next_page ) %]">Próxima >></a>
+<a href="[% c.req.uri_with( page => pager.last_page ) %]">Última ></a>
+[% ELSE %]
+Próxima > Última >>
+[% END %]
+</p>
+
+<p>Páginas: [% pager.last_page %]. Registros: [% pager.total_entries %].</p>

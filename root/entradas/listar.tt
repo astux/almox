@@ -1,0 +1,33 @@
+<h2>[% title_part %]</h2>
+
+[% form %]
+
+<table>
+  <tr>
+    <th>Data Entrada</th>
+    <th>Item</th>
+    <th>Nota Fiscal</th>
+    <th>Quantidade</th>
+    <th>Valor Unitário (R$)</th>
+    <th>Valor Total (R$)</th>
+    <th>Empenho</th>
+    <th>Fornecedor</th>
+  </tr>
+
+  [% FOREACH entrada IN entradas %]
+    <tr>
+      <td>
+        <a href="[% c.uri_for('/entradas', entrada.entrada_id) %]">[% entrada.data_entrada.dmy('/') %]</a>
+      </td>
+      <td>[% entrada.item_nome %]</td>
+      <td>[% entrada.nota_fiscal %]</td>
+      <td>[% entrada.quantidade %]</td>
+      <td>[% entrada.valor_unitario.replace('\.', ',') %]</td>
+      <td>[% entrada.valor_total.replace('\.', ',') %]</td>
+      <td>[% entrada.empenho %]</td>
+      <td>[% entrada.fornecedor_nome %]</td>
+    </tr>
+  [% END %]
+</table>
+
+[% INCLUDE paginacao.tt %]

@@ -1,0 +1,21 @@
+<h2>[% title_part %]</h2>
+
+<p>
+  <span>Código</span>
+  <span>[% object.id %]</span>
+</p>
+
+<p>
+  <span>Nome</span>
+  <span>[% object.nome %]</span>
+</p>
+
+<p>
+  <span>Descrição</span>
+  <span>[% object.descricao %]</span>
+</p>
+
+<p>
+  <span>Ativação</span>
+  <span>[% IF object.ativacao; 'Sim'; ELSE; 'Não'; END %]</span>
+</p>

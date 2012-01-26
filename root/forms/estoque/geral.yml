@@ -1,0 +1,13 @@
+---
+indicator: submit
+method: get
+auto_fieldset:
+  legend: Busca
+
+elements:
+  - type: Text
+    label: Nome
+    name: q
+
+  - type: Submit
+    value: Enviar

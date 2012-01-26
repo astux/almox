@@ -1,0 +1,26 @@
+<h2>[% title_part %]</h2>
+
+[% form %]
+
+<table>
+  <tr>
+    <th>Código</th>
+    <th>Nome</th>
+    <th>Ativação</th>
+    <th>Ações</th>
+  </tr>
+
+  [% FOREACH fornecedor IN fornecedores %]
+  <tr>
+    <td>[% fornecedor.id %]</td>
+    <td>[% fornecedor.nome %]</td>
+    <td>[% IF fornecedor.ativacao == 1; 'Sim'; ELSIF fornecedor.ativacao == 0; 'Não'; END %]</td>
+    <td>
+      <a href="[% c.uri_for('/fornecedores', fornecedor.id) %]">Ver</a>,
+      <a href="[% c.uri_for('/fornecedores', fornecedor.id, 'editar') %]">Editar</a>
+    </td>
+  </tr>
+  [% END %]
+</table>
+
+[% INCLUDE paginacao.tt %]

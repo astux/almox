@@ -1,0 +1,27 @@
+---
+indicator: submit
+action: /fornecedores/salvar
+auto_fieldset:
+    legend: Fornecedor
+
+elements:
+    - type: Hidden
+      name: id
+
+    - type: Text
+      name: nome
+      label: Nome
+      constraints:
+        - type: Required
+          message: "Campo obrigatório."
+
+    - type: Select
+      name: ativacao
+      label: Ativação
+      options:
+      - ['1', 'Ativado']
+      - ['0', 'Desativado']
+
+    - type: Submit
+      name: submit
+      value: Enviar

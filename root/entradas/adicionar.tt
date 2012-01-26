@@ -1,0 +1,75 @@
+<h2>[% title_part %]</h2>
+
+[% form %]
+
+<script type='text/javascript'>
+
+$(document).ready(function() {
+    var repeatable = $('.repeatable')[0];
+    var cloned = $(repeatable).parent().clone(true);
+    $(cloned).css('display', 'none');
+    $('form').after(cloned);
+});
+
+// Adicionar Item
+$('[name="adicionar_item"]').click(function() {
+    increase_counter();
+    var repeatable = $('.repeatable:last');
+    var cloned = $(repeatable).parent().clone(true).css('display', 'block');
+
+    $(cloned).find('input, select').each(function(index, element) {
+        change_elements_name_number(element, $('[name="entradas_itens_counter"]')[0].value);
+    });
+
+    $('form fieldset:last').after(cloned);
+
+});
+
+// Remover Item
+$('[name$="remover_item"]').click(function() {
+    if (decrease_counter()) {
+        $(this).parent().parent().parent().remove();
+        recount_repeatable();
+    }
+    else {
+        alert('Há apenas um item. Não é possível deletá-lo.');
+    }
+});
+
+// Após a deleção de um item do formulário,
+// refaz os índices dos nomes dos elementos inputs e selects do formulário
+function recount_repeatable() {
+    $('form .repeatable').each(function(index, element) {
+        $(element).find('input, select').each(function(i_index, i_element) {
+            change_elements_name_number(i_element, index+1);
+        });
+    });
+}
+
+function change_elements_name_number(element, index) {
+    var name = $(element).attr('name').replace(/\d+/, index);
+    $(element).attr('name', name);
+}
+
+function increase_counter() {
+    if ($('[name="entradas_itens_counter"]')[0].value) {
+        $('[name="entradas_itens_counter"]')[0].value = parseInt($('[name="entradas_itens_counter"]')[0].value, 10) + 1
+    }
+    else {
+        // Primeira vez que botão 'Adicionar Item' é pressionado, valor de contador é undefined.
+        // Como botão foi pressionado pela primeira vez, contador = 2
+        $('[name="entradas_itens_counter"]')[0].value = '2'
+    }
+}
+
+function decrease_counter() {
+    if ($('[name="entradas_itens_counter"]')[0].value == 1 || !$('[name="entradas_itens_counter"]')[0].value) {
+        return false;
+    }
+    else if ($('[name="entradas_itens_counter"]')[0].value > 1) {
+        $('[name="entradas_itens_counter"]')[0].value = parseInt($('[name="entradas_itens_counter"]')[0].value, 10) - 1
+        return true;
+    }
+}
+
+</script>

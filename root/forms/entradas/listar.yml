@@ -1,0 +1,33 @@
+---
+action: /entradas/listar
+auto_fieldset:
+  legend: Busca
+
+elements:
+  - type: Text
+    name: item_nome
+    label: Item
+
+  - type: Text
+    name: data_inicio
+    label: Data Início
+
+  - type: Text
+    name: data_fim
+    label: Data Fim
+
+  - type: Text
+    name: nota_fiscal
+    label: Nota Fiscal
+
+  - type: Text
+    name: empenho
+    label: Empenho
+
+  - type: Text
+    name: fornecedor_nome
+    label: Fornecedor
+
+  - type: Submit
+    name: submit
+    value: Enviar

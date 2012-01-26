@@ -1,0 +1,21 @@
+---
+indicator: submit
+method: get
+auto_fieldset:
+  legend: Busca
+
+elements:
+  - type: Text
+    label: Nome
+    name: q
+
+  - type: Select
+    name: ativacao
+    label: Ativação
+    options:
+      - ['', 'Ativado ou Desativado ']
+      - ['t', 'Ativado']
+      - ['f', 'Desativado']
+
+  - type: Submit
+    value: Enviar

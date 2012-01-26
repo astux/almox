@@ -1,0 +1,26 @@
+<h2>[% title_part %]</h2>
+
+[% form %]
+
+<table>
+  <tr>
+    <th>Código</th>
+    <th>Nome</th>
+    <th>Ativação</th>
+    <th>Ações</th>
+  </tr>
+
+  [% FOREACH item IN itens %]
+  <tr>
+    <td>[% item.id %]</td>
+    <td>[% item.nome %]</td>
+    <td>[% IF item.ativacao == 1 %]Sim[% ELSIF item.ativacao == 0 %]Não[% END %]</td>
+    <td>
+      <a href="[% c.uri_for('/itens', item.id) %]">Ver</a>,
+      <a href="[% c.uri_for('/itens', item.id, 'editar') %]">Editar</a>
+    </td>
+  </tr>
+  [% END %]
+</table>
+
+[% INCLUDE paginacao.tt %]

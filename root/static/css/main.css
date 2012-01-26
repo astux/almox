@@ -1,0 +1,9 @@
+a:link, a:visited, a:active { text-decoration: none; }
+
+a:link:after, a:visited:after { content: ''; }
+
+label { display: block; }
+
+#footer { float: right; font-style: italic; }
+
+#menu ul { list-style: none; background: #eee }

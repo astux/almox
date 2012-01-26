@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt" lang="pt">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>[% IF title_part; "Sistema de Almoxarifado &mdash; " _ title_part; ELSE; "Sistema de Almoxarifado"; END %]</title>
+
+  <script type="text/javascript" src="[% c.uri_for('/static/javascript/jquery-1.7.1.min.js') %]"></script>
+
+  <link rel="stylesheet" href="[% c.uri_for('/static/css/blueprint/screen.css') %]" />
+  <link rel="stylesheet" href="[% c.uri_for('/static/css/blueprint/print.css') %]" />
+  <!--[if lt IE 8]><link rel="stylesheet" href="[% c.uri_for('/static/css/blueprint/ie.css') %]" /><![endif]-->
+  <link rel="stylesheet" href="[% c.uri_for('/static/css/main.css') %]" />
+</head>
+
+<body>
+<div class='container'>
+  <div id="header" class="span-24">
+    <h1>Sistema de Almoxarifado</h1>
+  </div>
+
+  [% IF !c.user_exists AND template.name.match('auth/login.tt') %]
+
+  <div id="content" class='span-24'>
+    [% IF (c.flash.msg_ok || msg_ok) %]<div class='success'>[% c.flash.msg_ok || msg_ok %]</div>[% END %]
+    [% IF (c.flash.msg_erro || msg_erro) %]<div class='error'>[% c.flash.msg_erro || msg_erro %]</div>[% END %]
+    [% IF (c.flash.msg_aviso || msg_aviso) %]<div class='info'>[% c.flash.msg_aviso || msg_aviso %]</div>[% END %]
+    [% content %]
+  </div>
+
+  [% ELSE %]
+
+  <div id="body" class="span-24 last">
+    <div id="breadcrumbs span-24 last">
+      Você está em:
+        [% FOREACH item IN c.breadcrumbs %]
+          [% IF loop.last %]
+            [% item.label %]
+          [% ELSE %]
+            <a href="[% c.uri_for(item.path) %]">[% item.label %]</a> &mdash;
+          [% END %]
+        [% END %]
+    </div>
+    <div id="menu" class='span-6'>
+      <ul>
+
+        <li><a href="[% c.uri_for('/') %]">Início</a></li>
+
+        <li>
+          <a href="[% c.uri_for('/itens/listar') %]">Itens</a>
+          <ul>
+            <li><a href="[% c.uri_for('/itens/listar') %]">Listar</a></li>
+            <li><a href="[% c.uri_for('/itens/adicionar') %]">Adicionar</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/setores/listar') %]">Setores</a>
+          <ul>
+            <li><a href="[% c.uri_for('/setores/listar') %]">Listar</a></li>
+            <li><a href="[% c.uri_for('/setores/adicionar') %]">Adicionar</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/fornecedores/listar') %]">Fornecedores</a>
+          <ul>
+            <li><a href="[% c.uri_for('/fornecedores/listar') %]">Listar</a></li>
+            <li><a href="[% c.uri_for('/fornecedores/adicionar') %]">Adicionar</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/usuarios/listar') %]">Usuários</a>
+          <ul>
+            <li><a href="[% c.uri_for('/usuarios/listar') %]">Listar</a></li>
+            <li><a href="[% c.uri_for('/usuarios/adicionar') %]">Adicionar</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/estoque/geral') %]">Estoque</a>
+          <ul>
+            <li><a href="[% c.uri_for('/estoque/geral') %]">Geral</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/entradas/listar') %]">Entradas</a>
+          <ul>
+            <li><a href="[% c.uri_for('/entradas/listar') %]">Listar</a></li>
+            <li><a href="[% c.uri_for('/entradas/adicionar') %]">Adicionar</a></li>
+          </ul>
+        </li>
+
+        <li>
+          Saídas
+          <ul>
+            <li>Adicionar</li>
+            <li>Por mês</li>
+            <li>Por mês por setor</li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="[% c.uri_for('/auth/logout') %]">Logout</a> ([% c.user.nome_de_usuario %])
+        </li>
+
+      </ul>
+    </div>
+
+    <div id="content" class='span-18 last'>
+      [% IF (c.flash.msg_ok || msg_ok) %]<div class='success'>[% c.flash.msg_ok || msg_ok %]</div>[% END %]
+      [% IF (c.flash.msg_erro || msg_erro) %]<div class='error'>[% c.flash.msg_erro || msg_erro %]</div>[% END %]
+      [% IF (c.flash.msg_aviso || msg_aviso) %]<div class='info'>[% c.flash.msg_aviso || msg_aviso %]</div>[% END %]
+      [% content %]
+    </div>
+  </div>
+
+  [% END %]
+
+  <div id="footer">Astux - astux.com.br</div>
+</div>
+</body>
+</html>

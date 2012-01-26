@@ -1,0 +1,28 @@
+---
+indicator: submit
+action: /itens/salvar
+elements:
+    - type: Hidden
+      name: id
+
+    - type: Text
+      name: nome
+      label: Nome
+      constraints:
+        - type: Required
+          message: "Campo obrigatório."
+
+    - type: Textarea
+      name: descricao
+      label: Descrição
+
+    - type: Select
+      name: ativacao
+      label: Ativação
+      options:
+      - ['1', 'Ativado']
+      - ['0', 'Desativado']
+
+    - type: Submit
+      name: submit
+      value: Enviar

@@ -1,0 +1,11 @@
+<form action="[% c.uri_for('/auth/login_do') %]" method='post'>
+  <div>
+    <label>Nome de Usuário</label>
+    <input type='text' name='nome_de_usuario' />
+  </div>
+  <div>
+    <label>Senha</label>
+    <input type='password' name='senha' />
+  </div>
+  <input type='submit' value='Entrar' />
+</form>

@@ -1,0 +1,78 @@
+---
+indicator: submit
+action: /entradas/salvar
+
+model_config:
+  resultset: Entrada
+
+elements:
+  - type: Hidden
+    name: entradas_itens_counter
+
+  - type: Text
+    name: nota_fiscal
+    label: Nota Fiscal
+
+  - type: Text
+    name: data_entrada
+    label: Data
+    constraints:
+      - type: Required
+        message: Campo obrigatório
+
+  - type: Text
+    name: empenho
+    label: Empenho
+
+  - type: Select
+    name: fornecedor_id
+    label: Fornecedores
+    model_config:
+      resultset: Almox::Schema::Result::Fornecedore
+
+  - type: Fieldset
+    legend: Item
+    elements:
+      - type: Repeatable
+        nested_name: entradas_itens
+        counter_name: entradas_itens_counter
+        model_config:
+          new_rows_max: 100
+        attrs:
+          class: repeatable
+
+        elements:
+          - type: Hidden
+            name: id
+
+          - type: Select
+            name: item_id
+            label: Item
+            model_config:
+              resultset: Iten
+
+          - type: Text
+            name: quantidade
+            label: Quantidade
+            constraints:
+            - type: Required
+              message: Campo obrigatório
+
+          - type: Text
+            name: valor_unitario
+            label: Valor Unitário
+            constraints:
+              - type: Required
+                message: Campo obrigatório
+
+          - type: ContentButton
+            name: remover_item
+            content: Remover Item
+
+  - type: ContentButton
+    name: adicionar_item
+    content: Adicionar Item
+
+  - type: Submit
+    value: Enviar
+    name: submit
