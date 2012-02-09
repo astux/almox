@@ -56,8 +56,19 @@
               </ul>
             </li>
 
+            <li class="dropdown[% IF c.controller == c.controller('Solicitações') %] active[% END %]">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solicitações<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="[% c.uri_for('/movimentacoes/listar') %]"><i class='icon-align-justify'></i> Listar</a></li>
+                <li><a href="[% c.uri_for('/movimentacoes/adicionar') %]"><i class='icon-plus'></i> Adicionar</a></li>
+              </ul>
+            </li>
+
             <li [% IF c.controller == c.controller('Estoque') %] class='active'[% END %]><a href="[% c.uri_for('/estoque') %]">Estoque</a></li>
 
+
+          </ul>
+          <ul class='nav pull-right'>
             <li class="dropdown[% IF c.controller == c.controller('Usuario') %] active[% END %]">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuário ([% c.user.nome_de_usuario %])<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -67,7 +78,6 @@
             </li>
           </ul>
           [% END %]
-
         </div>
       </div>
     </div>
@@ -86,21 +96,21 @@
       </div>
 
       [% ELSE %]
-      
+
       <div class='row-fluid'>
         <div id="body" class="span12">
 
           <div class='row-fluid'>
             <div id="breadcrumbs" class="span12">
               <p>
-              Você está em:
-              [% FOREACH item IN c.breadcrumbs %]
-              [% IF loop.last %]
-              [% item.label %]
-              [% ELSE %]
-              <a href="[% c.uri_for(item.path) %]">[% item.label %]</a> &mdash;
-              [% END %]
-              [% END %]
+                Você está em:
+                [% FOREACH item IN c.breadcrumbs %]
+                [% IF loop.last %]
+                [% item.label %]
+                [% ELSE %]
+                <a href="[% c.uri_for(item.path) %]">[% item.label %]</a> &mdash;
+                [% END %]
+                [% END %]
               </p>
             </div>
           </div>
@@ -120,7 +130,11 @@
 
       [% END %]
 
-      <div class="page-footer">Astux &mdash; <a href='http://astux.com.br'>astux.com.br</a></div>
+      <div class='page-footer'>
+        <p>
+          <small>2011-2012 <a href='http://astux.com.br'>Astux</a> &mdash; software livre licenciado sob GPLv3</small>
+        </p>
+      </div>
     </div>
   </body>
 </html>
