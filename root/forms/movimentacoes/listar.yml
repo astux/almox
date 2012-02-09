@@ -29,6 +29,16 @@ elements:
     name: tombamento
     label: Tombamento
 
+  - type: Text
+    container_tag:
+    name: data_inicio
+    label: Data Início
+
+  - type: Text
+    container_tag:
+    name: data_fim
+    label: Data Fim
+
   - type: Block
     attributes:
       class: form-actions

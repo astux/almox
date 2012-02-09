@@ -1,31 +1,35 @@
 <div class='page-header'>
-<h2>[% title_part %]</h2>
+  <h2>[% title_part %]</h2>
 </div>
 
 [% form %]
 
 <table class='table table-bordered table-striped'>
-  <tr>
-    <th>Código</th>
-    <th>Nome</th>
-    <th>Ativação</th>
-    <th>Ações</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Ativação</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
 
-  [% FOREACH setor IN setores %]
-  <tr>
-    <td>[% setor.id %]</td>
-    <td>[% setor.nome %]</td>
-    <td>
-      [% IF setor.ativacao == 1 %]<span class='label label-success'>Sim</span>
-      [% ELSIF setor.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
-    </td>
-    <td>
-      <a href="[% c.uri_for('/setores', setor.id) %]">Ver</a>,
-      <a href="[% c.uri_for('/setores', setor.id, 'editar') %]">Editar</a>
-    </td>
-  </tr>
-  [% END %]
+  <tbody>
+    [% FOREACH setor IN setores %]
+    <tr>
+      <td>[% setor.id %]</td>
+      <td>[% setor.nome %]</td>
+      <td>
+        [% IF setor.ativacao == 1 %]<span class='label label-success'>Sim</span>
+        [% ELSIF setor.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
+      </td>
+      <td>
+        <a href="[% c.uri_for('/setores', setor.id) %]">Ver</a>,
+        <a href="[% c.uri_for('/setores', setor.id, 'editar') %]">Editar</a>
+      </td>
+    </tr>
+    [% END %]
+  </tbody>
 </table>
 
 [% INCLUDE paginacao.tt %]

@@ -1,31 +1,35 @@
 <div class='page-header'>
-<h2>[% title_part %]</h2>
+  <h2>[% title_part %]</h2>
 </div>
 
 [% form %]
 
 <table class='table table-bordered table-striped'>
-  <tr>
-    <th>Código</th>
-    <th>Nome</th>
-    <th>Ativação</th>
-    <th>Ações</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Ativação</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
 
-  [% FOREACH fornecedor IN fornecedores %]
-  <tr>
-    <td>[% fornecedor.id %]</td>
-    <td>[% fornecedor.nome %]</td>
-    <td>
-      [% IF fornecedor.ativacao == 1 %]<span class='label label-success'>Sim</span>
-      [% ELSIF fornecedor.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
-    </td>
-    <td>
-      <a href="[% c.uri_for('/fornecedores', fornecedor.id) %]">Ver</a>,
-      <a href="[% c.uri_for('/fornecedores', fornecedor.id, 'editar') %]">Editar</a>
-    </td>
-  </tr>
-  [% END %]
+  <tbody>
+    [% FOREACH fornecedor IN fornecedores %]
+    <tr>
+      <td>[% fornecedor.id %]</td>
+      <td>[% fornecedor.nome %]</td>
+      <td>
+        [% IF fornecedor.ativacao == 1 %]<span class='label label-success'>Sim</span>
+        [% ELSIF fornecedor.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
+      </td>
+      <td>
+        <a href="[% c.uri_for('/fornecedores', fornecedor.id) %]">Ver</a>,
+        <a href="[% c.uri_for('/fornecedores', fornecedor.id, 'editar') %]">Editar</a>
+      </td>
+    </tr>
+    [% END %]
+  </tbody>
 </table>
 
 [% INCLUDE paginacao.tt %]

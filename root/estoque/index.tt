@@ -5,19 +5,23 @@
 [% form %]
 
 <table class='table table-bordered table-striped'>
-  <tr>
-    <th>Setor</th>
-    <th>Item</th>
-    <th>Quantidade</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Setor</th>
+      <th>Item</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
 
-  [% FOREACH registro IN estoque %]
-  <tr>
-    <td>[% registro.setor_nome %]</td>
-    <td>[% registro.item_nome %]</td>
-    <td>[% registro.quantidade %]</td>
-  </tr>
-  [% END %]
+  <tbody>
+    [% FOREACH registro IN estoque %]
+    <tr>
+      <td>[% registro.setor_nome %]</td>
+      <td>[% registro.item_nome %]</td>
+      <td>[% registro.quantidade %]</td>
+    </tr>
+    [% END %]
+  </tbody>
 </table>
 
 [% INCLUDE paginacao.tt %]
