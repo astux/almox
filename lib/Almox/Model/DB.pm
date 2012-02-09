@@ -7,7 +7,7 @@ __PACKAGE__->config(
     schema_class => 'Almox::Schema',
 
     connect_info => {
-        dsn => 'dbi:Pg:dbname=almox',
+        dsn => 'dbi:Pg:dbname=almox2',
         user => 'almox',
         password => 'almox',
         AutoCommit => q{1},

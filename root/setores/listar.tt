@@ -1,8 +1,10 @@
+<div class='page-header'>
 <h2>[% title_part %]</h2>
+</div>
 
 [% form %]
 
-<table>
+<table class='table table-bordered table-striped'>
   <tr>
     <th>Código</th>
     <th>Nome</th>
@@ -14,7 +16,10 @@
   <tr>
     <td>[% setor.id %]</td>
     <td>[% setor.nome %]</td>
-    <td>[% IF setor.ativacao == 1; 'Sim'; ELSIF setor.ativacao == 0; 'Não'; END %]</td>
+    <td>
+      [% IF setor.ativacao == 1 %]<span class='label label-success'>Sim</span>
+      [% ELSIF setor.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
+    </td>
     <td>
       <a href="[% c.uri_for('/setores', setor.id) %]">Ver</a>,
       <a href="[% c.uri_for('/setores', setor.id, 'editar') %]">Editar</a>

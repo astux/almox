@@ -1,1 +1,71 @@
-Início
+<div class='page-header'>
+  <h2>Início</h2>
+</div>
+
+<h3>Solicitações em Aberto</h3>
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Setor</th>
+      <th>Item</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>03/01/2012</td>
+      <td>CAF</td>
+      <td>Mesa</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>02/01/2012</td>
+      <td>CRAS 1</td>
+      <td>Caneta</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>03/01/2012</td>
+      <td>CRAS 2</td>
+      <td>Geladeira</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>04/01/2012</td>
+      <td>CRAS 3</td>
+      <td>Lápis</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Movimentações Mais Recentes</h3>
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Setor de Origem</th>
+      <th>Setor de Destino</th>
+      <th>Item</th>
+      <th>Quantidade</th>
+      <th>Tombamento</th>
+      <th>Autorizador(a)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    [% FOREACH mi IN movimentacoes_itens %]
+    <tr>
+      <td>[% mi.movimentacao.t_updated.dmy('/') _ ' ' _ mi.movimentacao.t_updated.hms(':') %]</td>
+      <td>[% IF mi.movimentacao.setor_origem.nome == ''; '&mdash;'; ELSE; mi.movimentacao.setor_origem.nome; END; %]</td>
+      <td>[% mi.movimentacao.setor_destino.nome %]</td>
+      <td>[% mi.item.nome %]</td>
+      <td>[% mi.quantidade %]</td>
+      <td>[% IF mi.tombamento == ''; '&mdash;'; ELSE; mi.tombamento; END; %]</td>
+      <td>[% mi.movimentacao.usuario.nome %]</td>
+    </tr>
+    [% END %]
+  </tbody>
+</table>

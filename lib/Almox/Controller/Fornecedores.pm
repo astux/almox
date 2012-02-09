@@ -8,7 +8,7 @@ BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 sub base :Chained('/') :PathPart('fornecedores') :CaptureArgs(0) {
     my ($self, $c) = @_;
 
-    $c->stash->{resultset} = $c->model('DB::Fornecedore');
+    $c->stash->{resultset} = $c->model('DB::Fornecedor');
 }
 
 sub object :Chained('base') :PathPart('') :CaptureArgs(1) {

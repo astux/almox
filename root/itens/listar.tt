@@ -1,26 +1,35 @@
-<h2>[% title_part %]</h2>
+<div class='page-header'>
+  <h2>[% title_part %]</h2>
+</div>
 
 [% form %]
 
-<table>
+<table class='table table-bordered table-striped'>
+  <thead>
   <tr>
     <th>Código</th>
     <th>Nome</th>
     <th>Ativação</th>
     <th>Ações</th>
   </tr>
+  </thead>
 
+  <tbody>
   [% FOREACH item IN itens %]
   <tr>
     <td>[% item.id %]</td>
     <td>[% item.nome %]</td>
-    <td>[% IF item.ativacao == 1 %]Sim[% ELSIF item.ativacao == 0 %]Não[% END %]</td>
+    <td>
+      [% IF item.ativacao == 1 %]<span class='label label-success'>Sim</span>
+      [% ELSIF item.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
+    </td>
     <td>
       <a href="[% c.uri_for('/itens', item.id) %]">Ver</a>,
       <a href="[% c.uri_for('/itens', item.id, 'editar') %]">Editar</a>
     </td>
   </tr>
   [% END %]
+  </tbody>
 </table>
 
 [% INCLUDE paginacao.tt %]

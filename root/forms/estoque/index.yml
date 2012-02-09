@@ -3,25 +3,22 @@ indicator: submit
 method: get
 attributes:
   class: well form-inline
-
 elements:
   - type: Text
-    name: q
+    name: setor
     container_tag:
     attributes:
-      placeholder: Nome
+      placeholder: Setor
 
-  - type: Select
-    name: ativacao
+  - type: Text
+    name: item
     container_tag:
-    options:
-      - ['', 'Ativado ou Desativado ']
-      - ['t', 'Ativado']
-      - ['f', 'Desativado']
+    attributes:
+      placeholder: Item
 
   - type: Submit
-    value: Enviar
-    container_tag:
     name: submit
+    value: Buscar
     attributes:
       class: btn
+    container_tag:

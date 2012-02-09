@@ -1,9 +1,8 @@
 ---
 indicator: submit
 action: /fornecedores/salvar
-auto_fieldset:
-    legend: Fornecedor
-
+attributes:
+  class: well
 elements:
     - type: Hidden
       name: id
@@ -14,6 +13,7 @@ elements:
       constraints:
         - type: Required
           message: "Campo obrigatório."
+      container_tag:
 
     - type: Select
       name: ativacao
@@ -21,7 +21,15 @@ elements:
       options:
       - ['1', 'Ativado']
       - ['0', 'Desativado']
+      container_tag:
 
-    - type: Submit
-      name: submit
-      value: Enviar
+    - type: Block
+      attributes:
+        class: form-actions
+      elements:
+        - type: Submit
+          name: submit
+          value: Enviar
+          container_tag:
+          attributes:
+            class: btn

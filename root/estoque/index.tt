@@ -1,0 +1,23 @@
+<div class='page-header'>
+  <h2>Estoque</h2>
+</div>
+
+[% form %]
+
+<table class='table table-bordered table-striped'>
+  <tr>
+    <th>Setor</th>
+    <th>Item</th>
+    <th>Quantidade</th>
+  </tr>
+
+  [% FOREACH registro IN estoque %]
+  <tr>
+    <td>[% registro.setor_nome %]</td>
+    <td>[% registro.item_nome %]</td>
+    <td>[% registro.quantidade %]</td>
+  </tr>
+  [% END %]
+</table>
+
+[% INCLUDE paginacao.tt %]

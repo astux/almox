@@ -1,0 +1,41 @@
+---
+indicator: submit
+method: get
+attributes:
+  class: well
+elements:
+  - type: Text
+    container_tag:
+    name: setor_origem
+    label: Setor de Origem
+
+  - type: Text
+    container_tag:
+    name: setor_destino
+    label: Setor de Destino
+
+  - type: Text
+    container_tag:
+    name: item
+    label: Item
+
+  - type: Text
+    container_tag:
+    name: usuario
+    label: Usuário
+
+  - type: Text
+    container_tag:
+    name: tombamento
+    label: Tombamento
+
+  - type: Block
+    attributes:
+      class: form-actions
+    elements:
+      - type: Submit
+        name: submit
+        value: Buscar
+        container_tag:
+        attributes:
+          class: btn

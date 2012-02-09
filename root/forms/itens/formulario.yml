@@ -1,6 +1,8 @@
 ---
 indicator: submit
 action: /itens/salvar
+attributes:
+  class: well
 elements:
     - type: Hidden
       name: id
@@ -8,6 +10,7 @@ elements:
     - type: Text
       name: nome
       label: Nome
+      container_tag:
       constraints:
         - type: Required
           message: "Campo obrigatório."
@@ -15,14 +18,25 @@ elements:
     - type: Textarea
       name: descricao
       label: Descrição
+      container_tag:
+      model_config:
+        ignore_if_empty: 1
 
     - type: Select
       name: ativacao
       label: Ativação
+      container_tag:
       options:
       - ['1', 'Ativado']
       - ['0', 'Desativado']
 
-    - type: Submit
-      name: submit
-      value: Enviar
+    - type: Block
+      attributes:
+        class: form-actions
+      elements:
+        - type: Submit
+          name: submit
+          value: Enviar
+          container_tag:
+          attributes:
+            class: btn

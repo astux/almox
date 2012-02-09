@@ -1,0 +1,7 @@
+body,p,input,select,label,textarea { font-family: sans-serif; }
+.page-footer {
+  padding-top: 17px;
+  margin: 18px 0;
+  border-top: 1px solid #eeeeee;
+}
+.error_message { color: red; display: block; }

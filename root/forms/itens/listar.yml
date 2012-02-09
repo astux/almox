@@ -1,20 +1,26 @@
 ---
 indicator: submit
 method: get
-auto_fieldset:
-  legend: Busca
+attributes:
+  class: well form-inline
 elements:
-  - type: Text
-    label: Nome
+  - type: Text    
+    container_tag:
     name: q
+    attributes:
+      class:
+      placeholder: Nome
 
   - type: Select
     name: ativacao
-    label: Ativação
+    container_tag:
     options:
       - ['', 'Ativado ou Desativado ']
       - ['t', 'Ativado']
       - ['f', 'Desativado']
 
   - type: Submit
-    value: Enviar
+    value: Buscar
+    container_tag:
+    attributes:
+      class: btn

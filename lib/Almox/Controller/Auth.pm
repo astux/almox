@@ -21,7 +21,7 @@ sub login_do :Local :Args(0) {
     my $password = $c->req->params->{senha};
 
     if ( $c->authenticate({ nome_de_usuario => $username, senha => $password }) ) {
-        $c->res->redirect( $c->uri_for('/itens/listar') );
+        $c->res->redirect( $c->uri_for('/') );
     }
     else {
         $c->flash->{msg_erro} = 'Usuário/senha não válidos.';

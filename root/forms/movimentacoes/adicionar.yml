@@ -1,0 +1,80 @@
+---
+indicator: submit
+attributes:
+  class: well
+action: /movimentacoes/salvar
+elements:
+  - type: Select
+    name: origem_setor_id
+    label: Setor de Origem
+    container_tag:
+    filters:
+      - type: NonNumeric
+
+  - type: Select
+    name: destino_setor_id
+    label: Setor de Destino
+    container_tag:
+    model_config:
+      resultset: Setor
+      condition:
+        ativacao: 1
+
+  - type: Select
+    name: fornecedor_id
+    container_tag:
+    model_config:
+      resultset: Fornecedor
+      condition:
+        ativacao: 1
+    label: Fornecedor
+
+  - type: Hidden
+    name: item_counter
+
+  - type: Fieldset
+    legend: Item
+    elements:
+      - type: Repeatable
+        nested_name: movimentacoes_itens
+        counter_name: item_counter
+        model_config:
+          empty_rows: 100
+        elements:
+          - type: Hidden
+            name: id
+
+          - type: Select
+            name: item_id
+            label: Item
+            container_tag:
+            model_config:
+              resultset: Item
+              condition:
+                ativacao: 1
+
+          - type: Text
+            name: quantidade
+            label: Quantidade
+            container_tag:
+            constraints:
+              - type: Required
+                message: "Campo obrigatório"
+
+          - type: Text
+            name: tombamento
+            label: Tombamento
+            container_tag:
+            model_config:
+              ignore_if_empty: 1
+
+  - type: Block
+    attributes:
+      class: form-actions
+    elements:
+      - type: Submit
+        name: submit
+        value: Enviar
+        container_tag:
+        attributes:
+          class: btn
