@@ -30,14 +30,16 @@ elements:
     label: Fornecedor
 
   - type: Hidden
-    name: item_counter
+    name: itens_counter
 
   - type: Fieldset
     legend: Item
+    attributes:
+      class: repeatable
     elements:
       - type: Repeatable
         nested_name: movimentacoes_itens
-        counter_name: item_counter
+        counter_name: itens_counter
         model_config:
           empty_rows: 100
         elements:
@@ -68,10 +70,24 @@ elements:
             model_config:
               ignore_if_empty: 1
 
+          - type: Button
+            name: remover_item
+            value: Remover Este Item
+            attributes:
+              class: btn
+
+  - type: Button
+    name: adicionar_item
+    value: Adicionar Um Item
+    attributes:
+      class: btn
+
+
   - type: Block
     attributes:
       class: form-actions
     elements:
+
       - type: Submit
         name: submit
         value: Enviar
