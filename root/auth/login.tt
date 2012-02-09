@@ -9,3 +9,9 @@
   </div>
   <input type='submit' value='Entrar' class='btn'/>
 </form>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+    $('[name="nome_de_usuario"]').focus()
+});
+</script>
