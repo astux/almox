@@ -31,7 +31,7 @@ $('[name="adicionar_item"]').click(function() {
 // Remover Item
 $('[name$="remover_item"]').click(function() {
     if (decrease_counter()) {
-        $(this).parent().parent().parent().remove();
+        $(this).parent().parent().remove();
         recount_repeatable();
     }
     else {

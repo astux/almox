@@ -4,12 +4,13 @@ attributes:
   class: well
 action: /movimentacoes/salvar
 elements:
+  - type: Hidden
+    name: id
+
   - type: Select
     name: origem_setor_id
     label: Setor de Origem
     container_tag:
-    filters:
-      - type: NonNumeric
 
   - type: Select
     name: destino_setor_id
@@ -32,17 +33,20 @@ elements:
   - type: Hidden
     name: itens_counter
 
-  - type: Fieldset
-    legend: Item
-    attributes:
-      class: repeatable
+
+  - type: Repeatable
+    nested_name: movimentacoes_itens
+    counter_name: itens_counter
+    model_config:
+      new_rows_max: 100
     elements:
-      - type: Repeatable
-        nested_name: movimentacoes_itens
-        counter_name: itens_counter
-        model_config:
-          empty_rows: 100
+
+      - type: Fieldset
+        legend: Item
+        attributes:
+          class: repeatable
         elements:
+
           - type: Hidden
             name: id
 

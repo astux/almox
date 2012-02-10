@@ -8,7 +8,7 @@ BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 sub index :Path :Args(0) {
     my ($self, $c) = @_;
 
-    $c->req->redirect('/movimentacoes/listar');
+    $c->res->redirect($c->uri_for('/movimentacoes/listar'));
 }
 
 sub listar :Local :Args(0) :FormConfig {
@@ -45,9 +45,35 @@ sub listar :Local :Args(0) :FormConfig {
         $mi_rs = $mi_rs->search_rs({ 'usuario.nome' => { ilike => '%' . $c->req->params->{usuario} . '%' } });
     }
 
+    if ($c->req->params->{data_inicio}) {
+        $mi_rs = $mi_rs->search_rs({ 't_updated' => { '>=' => $c->req->params->{data_inicio} . ' 00:00:00' } });
+    }
+
+    if ($c->req->params->{data_fim}) {
+        $mi_rs = $mi_rs->search_rs({ 't_updated' => { '<=' => $c->req->params->{data_fim} . ' 23:59:59' } });
+    }
+
     $c->stash(movimentacoes_itens => [$mi_rs->all],
               pager => $mi_rs->pager,
               title_part => 'Listagem de Movimentações');
+}
+
+sub object :Chained('/') :PathPart('movimentacoes') :CaptureArgs(1) {
+    my ($self, $c, $movimentacao_id) = @_;
+
+    eval {
+        $c->stash->{object} = $c->model('DB::Movimentacao')->find($movimentacao_id);
+    } or do {
+        $c->flash->{msg_erro} = 'Não foi possível encontrar o item referenciado.';
+        $c->res->redirect($c->uri_for('/movimentacoes/listar'));
+    }
+}
+
+sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
+    my ($self, $c) = @_;
+
+    $c->stash->{form}->model->default_values( $c->stash->{object} );
+    $c->stash->{title_part} = 'Edição de Movimentação';
 }
 
 sub adicionar :Local :Args(0) :FormConfig {
@@ -56,7 +82,6 @@ sub adicionar :Local :Args(0) :FormConfig {
     my @setores = $c->model('DB::Setor')->search({ ativacao => 1})->all;
 
     my @setores_options;
-
     push @setores_options, [undef, 'Nenhum'];
 
     foreach (@setores) {
@@ -76,13 +101,32 @@ sub salvar :Local :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
     my $form = $c->stash->{form};
 
     if ($form->submitted_and_valid) {
-        my $movimentacao = $c->model('DB::Movimentacao')->new_result({
-                                                                      usuario_id => $c->user->id
-                                                                     });
+        my $salvar_sub = sub {
+            my $movimentacao;
 
-        $form->model->update($movimentacao);
-        $c->flash->{msg_ok} = 'Movimentação salva.';
-        $c->res->redirect( $c->uri_for('/movimentacoes/listar') );
+            if ($c->req->params->{id}) {
+                $movimentacao = $c->model('DB::Movimentacao')->find($c->req->params->{id});
+            }
+            else {
+                $movimentacao = $c->model('DB::Movimentacao')->new_result({
+                                                                           usuario_id => $c->user->id
+                                                                          });
+            }
+
+            $form->model->update($movimentacao);
+        };
+
+        my $schema = $c->model('DB::Movimentacao')->result_source->schema;
+
+        eval {
+            $schema->txn_do($salvar_sub);
+
+            $c->flash->{msg_ok} = 'Movimentação salva.';
+            $c->res->redirect( $c->uri_for('/movimentacoes/listar') );
+        } or do {
+            $c->flash->{msg_erro} = 'Erro na inserção. ' . $@;
+            $c->stash->{template} = 'movimentacoes/adicionar.tt';
+        };
     }
     else {
         $c->flash->{msg_erro} = 'Erro na inserção.';

@@ -49,3 +49,10 @@ elements:
         container_tag:
         attributes:
           class: btn
+
+      - type: Reset
+        name: reset
+        value: Limpar Campos
+        container_tag:
+        attributes:
+          class: btn
