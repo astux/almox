@@ -5,6 +5,17 @@ use utf8;
 use Data::Dumper;
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 
+sub object :Chained('/') :PathPart('movimentacoes') :CaptureArgs(1) {
+    my ($self, $c, $movimentacao_id) = @_;
+
+    eval {
+        $c->stash->{object} = $c->model('DB::Movimentacao')->find($movimentacao_id);
+    } or do {
+        $c->flash->{msg_erro} = 'Não foi possível encontrar o item referenciado.';
+        $c->res->redirect($c->uri_for('/movimentacoes/listar'));
+    }
+}
+
 sub index :Path :Args(0) {
     my ($self, $c) = @_;
 
@@ -46,11 +57,11 @@ sub listar :Local :Args(0) :FormConfig {
     }
 
     if ($c->req->params->{data_inicio}) {
-        $mi_rs = $mi_rs->search_rs({ 't_updated' => { '>=' => $c->req->params->{data_inicio} . ' 00:00:00' } });
+        $mi_rs = $mi_rs->search_rs({ 'movimentacao.t_updated' => { '>=' => $c->req->params->{data_inicio} . ' 00:00:00' } });
     }
 
     if ($c->req->params->{data_fim}) {
-        $mi_rs = $mi_rs->search_rs({ 't_updated' => { '<=' => $c->req->params->{data_fim} . ' 23:59:59' } });
+        $mi_rs = $mi_rs->search_rs({ 'movimentacao.t_updated' => { '<=' => $c->req->params->{data_fim} . ' 23:59:59' } });
     }
 
     $c->stash(movimentacoes_itens => [$mi_rs->all],
@@ -58,26 +69,21 @@ sub listar :Local :Args(0) :FormConfig {
               title_part => 'Listagem de Movimentações');
 }
 
-sub object :Chained('/') :PathPart('movimentacoes') :CaptureArgs(1) {
-    my ($self, $c, $movimentacao_id) = @_;
 
-    eval {
-        $c->stash->{object} = $c->model('DB::Movimentacao')->find($movimentacao_id);
-    } or do {
-        $c->flash->{msg_erro} = 'Não foi possível encontrar o item referenciado.';
-        $c->res->redirect($c->uri_for('/movimentacoes/listar'));
-    }
-}
 
 sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
     my ($self, $c) = @_;
 
-    $c->stash->{form}->model->default_values( $c->stash->{object} );
+    my $form = $c->stash->{form};
+
+    $self->preenche_setores_origem_form($c, $form);
+
+    $form->model->default_values( $c->stash->{object} );
     $c->stash->{title_part} = 'Edição de Movimentação';
 }
 
-sub adicionar :Local :Args(0) :FormConfig {
-    my ($self, $c) = @_;
+sub preenche_setores_origem_form {
+    my ($self, $c, $form) = @_;
 
     my @setores = $c->model('DB::Setor')->search({ ativacao => 1})->all;
 
@@ -88,9 +94,16 @@ sub adicionar :Local :Args(0) :FormConfig {
         push @setores_options, [$_->id, $_->nome];
     }
 
-    my $form = $c->stash->{form};
     my $element = $form->get_element({ name => 'origem_setor_id'});
     $element->options(\@setores_options);
+}
+
+sub adicionar :Local :Args(0) :FormConfig {
+    my ($self, $c) = @_;
+
+    my $form = $c->stash->{form};
+
+    $self->preenche_setores_origem_form($c, $form);
 
     $c->stash(title_part => 'Adição de Movimentação');
 }
@@ -113,6 +126,10 @@ sub salvar :Local :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
                                                                           });
             }
 
+            use DateTime;
+            my $datetime = DateTime->now->set_time_zone('America/Fortaleza');
+            $movimentacao->t_updated($datetime->dmy("/") . " " . $datetime->hms(":"));
+
             $form->model->update($movimentacao);
         };
 
@@ -132,6 +149,12 @@ sub salvar :Local :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
         $c->flash->{msg_erro} = 'Erro na inserção.';
         $c->stash->{template} = 'movimentacoes/adicionar.tt';
     }
+}
+
+sub ver :Chained('object') :PathPart('') :Args(0) {
+    my ($self, $c) = @_;
+
+    $c->stash->{title_part} = 'Visualização de Movimentação';
 }
 
 __PACKAGE__->meta->make_immutable;

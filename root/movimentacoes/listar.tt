@@ -28,7 +28,7 @@
     <td>[% IF mi.tombamento == ''; '&mdash;'; ELSE; mi.tombamento; END; %]</td>
     <td>[% mi.movimentacao.usuario.nome %]</td>
     <td>
-      <a href="[% c.uri_for('/movimentacoes', mi.movimentacao.id) %]">Ver</a>,
+      <a href="[% c.uri_for('/movimentacoes', mi.movimentacao.id, 'editar') %]">Ver</a>,
       <a href="[% c.uri_for('/movimentacoes', mi.movimentacao.id, 'editar') %]">Editar</a>
     </td>
   </tr>

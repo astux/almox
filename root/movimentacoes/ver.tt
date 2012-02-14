@@ -1,0 +1,26 @@
+<div class='page-header'>
+  <h2>[% title_part %]</h2>
+</div>
+
+<dl>
+  <dt>Setor de Origem</dt>
+  <dd>[% IF object.setor_origem.nome; object.setor_origem.nome; ELSE; '&mdash;'; END; %]</dd>
+  <dt>Setor de Destino</dt>
+  <dd>[% object.setor_destino.nome %]</dd>
+  <dt>Fornecedor</dt>
+  <dd>[% object.fornecedor.nome %]</dd>
+</dl>
+
+[% FOREACH mi IN object.movimentacoes_itens %]
+<fieldset>
+  <legend>Item</legend>
+  <dl>
+    <dt>Nome</dt>
+    <dd>[% mi.item.nome %]</dd>
+    <dt>Quantidade</dt>
+    <dd>[% mi.quantidade %]</dd>
+    <dt>Tombamento</dt>
+    <dd>[% IF mi.tombamento; mi.tombamento; ELSE; '&mdash;'; END; %]</dd>
+  </dl>
+</fieldset>
+[% END %]
