@@ -1,4 +1,4 @@
-package Almox::View::Web;
+package Almox::View::TT;
 
 use strict;
 use warnings;
