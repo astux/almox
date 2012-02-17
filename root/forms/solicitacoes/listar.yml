@@ -1,0 +1,26 @@
+---
+indicator: submit
+method: get
+attributes:
+  class: well form-inline
+elements:
+  - type: Text    
+    container_tag:
+    name: q
+    attributes:
+      class:
+      placeholder: Nome
+
+  - type: Select
+    name: ativacao
+    container_tag:
+    options:
+      - ['', 'Ativado ou Desativado ']
+      - ['t', 'Ativado']
+      - ['f', 'Desativado']
+
+  - type: Submit
+    value: Buscar
+    container_tag:
+    attributes:
+      class: btn
