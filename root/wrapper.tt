@@ -1,3 +1,9 @@
+[% IF no_wrapper or template.no_wrapper %]
+
+[% content %]
+
+[% ELSE %]
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt" lang="pt">
@@ -20,7 +26,7 @@
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container-fluid">
-
+          <i class="brand"></i>
           <a class="brand" href="[% c.uri_for('/') %]">Sistema de Almoxarifado</a>
 
           [% IF c.user_exists %]
@@ -61,8 +67,8 @@
             <li class="dropdown[% IF c.controller == c.controller('Solicitações') %] active[% END %]">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solicitações<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="[% c.uri_for('/movimentacoes/listar') %]"><i class='icon-align-justify'></i> Listar</a></li>
-                <li><a href="[% c.uri_for('/movimentacoes/adicionar') %]"><i class='icon-plus'></i> Adicionar</a></li>
+                <li><a href="[% c.uri_for('/solicitacoes/listar') %]"><i class='icon-align-justify'></i> Listar</a></li>
+                <li><a href="[% c.uri_for('/solicitacoes/adicionar') %]"><i class='icon-plus'></i> Adicionar</a></li>
               </ul>
             </li>
 
@@ -140,3 +146,5 @@
     </div>
   </body>
 </html>
+
+[% END %]
