@@ -64,6 +64,7 @@ __PACKAGE__->config(
                                                                   }
                                                   },
                     default_model => 'DBIC', # Pesquisar. FormFu?
+                    default_view => 'TT',
                     'Plugin::Authentication' => {
                                                  default => {
                                                              credential => {
@@ -78,7 +79,12 @@ __PACKAGE__->config(
                                                                        role_field => 'nome'
                                                                       },
                                                             }
-                                                }
+                                                },
+                    'View::Wkhtmltopdf' => {
+                                            command   => '/usr/bin/wkhtmltopdf',
+                                            tmpdir    => '/tmp',
+                                            stash_key => 'wkhtmltopdf'
+                                           },
                    );
 
 # Start the application
