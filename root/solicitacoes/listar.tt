@@ -1,0 +1,37 @@
+<div class='page-header'>
+  <h2>[% title_part %]</h2>
+</div>
+
+[% form %]
+
+<table class='table table-striped'>
+  <thead>
+  <tr>
+    <th>Data</th>
+    <th>Setor de Destino</th>
+    <th>Itens</th>
+    <th>Status</th>
+    <th>Solicitante</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  [% FOREACH solicitacao IN solicitacoes %]
+  <tr>
+    <td>[% solicitacao.t_updated.dmy('/') _ ' ' _ solicitacao.t_updated.hms(':') %]</td>
+    <td>[% solicitacao.setor.nome %]</td>    
+    <td>Itens</td>
+    <td>[% solicitacao.solicitacao_status.nome %]</td>
+    <td>[% solicitacao.solicitacao_status.nome %]</td>
+    
+    <td>
+      <a href="[% c.uri_for('/solicitacoes', solicitacao.id) %]">Ver</a>,
+      <a href="[% c.uri_for('/solicitacoes', solicitacao.id, 'editar') %]">Editar</a>
+    </td>
+  </tr>
+  [% END %]
+  </tbody>
+</table>
+
+[% INCLUDE paginacao.tt %]

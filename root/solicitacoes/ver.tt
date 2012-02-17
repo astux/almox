@@ -1,0 +1,14 @@
+<div class='page-header'>
+  <h2>[% title_part %]</h2>
+</div>
+
+<dl>
+  <dt>Código</dt>
+  <dd>[% object.id %]</dd>
+  <dt>Nome</dt>
+  <dd>[% object.nome %]</dd>
+  <dt>Descrição</dt>
+  <dd>[% object.descricao %]</dd>
+  <dt>Ativação</dt>
+  <dd>[% IF object.ativacao; 'Sim'; ELSE; 'Não'; END %]</dd>
+</dl>
