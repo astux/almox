@@ -10,16 +10,30 @@ elements:
   - type: Select
     name: origem_setor_id
     label: Setor de Origem
-    container_tag:
-
-  - type: Select
-    name: destino_setor_id
-    label: Setor de Destino
+    empty_first: 1
+    empty_first_label: Nenhum
     container_tag:
     model_config:
       resultset: Setor
       condition:
         ativacao: 1
+      attributes:
+        order_by: 'nome asc'
+      ignore_if_empty: 1
+
+  - type: Select
+    name: destino_setor_id
+    label: Setor de Destino
+    empty_first: 1
+    empty_first_label: Nenhum
+    container_tag:
+    model_config:
+      resultset: Setor
+      condition:
+        ativacao: 1
+      attributes:
+        order_by: 'nome asc'
+      ignore_if_empty: 1
 
   - type: Select
     name: fornecedor_id
@@ -45,10 +59,13 @@ elements:
         legend: Item
         attributes:
           class: repeatable
+
         elements:
 
           - type: Hidden
             name: id
+            model_config:
+              delete_if_empty: 1
 
           - type: Select
             name: item_id
@@ -56,6 +73,8 @@ elements:
             container_tag:
             model_config:
               resultset: Item
+              attributes:
+                order_by: 'nome asc'
               condition:
                 ativacao: 1
 
@@ -73,6 +92,11 @@ elements:
             container_tag:
             model_config:
               ignore_if_empty: 1
+
+          - type: Hidden
+            name: delete_item
+            model_config:
+              delete_if_true: 1
 
           - type: Button
             name: remover_item

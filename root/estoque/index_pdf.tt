@@ -1,0 +1,25 @@
+[% META no_wrapper = 1 %]
+
+<style type='text/css'>
+body { font-family: monospace }
+</style>
+
+<table border=1>
+  <thead>
+    <tr>
+      <th>Setor</th>
+      <th>Item</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    [% FOREACH registro IN estoque %]
+    <tr>
+      <td>[% registro.setor_nome %]</td>
+      <td>[% registro.item_nome %]</td>
+      <td>[% registro.quantidade %]</td>
+    </tr>
+    [% END %]
+  </tbody>
+</table>

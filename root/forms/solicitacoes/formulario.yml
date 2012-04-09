@@ -4,33 +4,82 @@ action: /solicitacoes/salvar
 attributes:
   class: well
 elements:
-    - type: Hidden
-      name: id
+  - type: Hidden
+    name: id
 
-    - type: Hidden
-      name: usuario_id
+  - type: Hidden
+    name: usuario_id
 
-    - type: Select
-      name: solicitacao_status_id
-      label: Status
-      container_tag:
-      model_config:
-        resultset: SolicitacaoStatus
+  - type: Select
+    name: solicitacao_status_id
+    label: Status
+    container_tag:
+    model_config:
+      resultset: SolicitacaoStatus
 
-    - type: Textarea
-      name: anotacoes
-      label: Anotações
-      container_tag:
-      model_config:
-        ignore_if_empty: 1
+  - type: Textarea
+    name: anotacoes
+    label: Anotações
+    container_tag:
+    model_config:
+      ignore_if_empty: 1
 
-    - type: Block
-      attributes:
-        class: form-actions
-      elements:
-        - type: Submit
-          name: submit
-          value: Enviar
-          container_tag:
-          attributes:
-            class: btn
+  - type: Select
+    name: setor_id
+    label: Setor
+    container_tag:
+    model_config:
+      resultset: Setor
+
+  - type: Hidden
+    name: itens_counter
+
+  - type: Repeatable
+    nested_name: solicitacoes_itens
+    counter_name: itens_counter
+    model_config:
+      new_rows_max: 100
+    elements:
+
+      - type: Fieldset
+        legend: Item
+        attributes:
+          class: repeatable
+        elements:
+
+          - type: Hidden
+            name: id
+
+          - type: Select
+            name: item_id
+            label: Item
+            container_tag:
+            model_config:
+              resultset: Item
+              condition:
+                ativacao: 1
+
+          - type: Text
+            name: quantidade
+            label: Quantidade
+            container_tag:
+            constraints:
+              - type: Required
+                message: "Campo obrigatório"
+
+          - type: Button
+            name: remover_item
+            value: Remover Este Item
+            attributes:
+              class: btn
+
+  - type: Block
+    attributes:
+      class: form-actions
+    elements:
+      - type: Submit
+        name: submit
+        value: Enviar
+        container_tag:
+        attributes:
+          class: btn

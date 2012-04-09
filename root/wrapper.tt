@@ -18,20 +18,22 @@
 
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/css/bootstrap.min.css') %]" />
     <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/css/smoothness/jquery-ui-1.8.17.custom.css') %]" />
-    <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/css/estilo2.css') %]" />
+    <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/css/estilo.css') %]" />
   </head>
 
   <body>
 
     <div class="navbar">
+
       <div class="navbar-inner">
         <div class="container-fluid">
           <i class="brand"></i>
-          <a class="brand" href="[% c.uri_for('/') %]">Sistema de Almoxarifado</a>
+          <a class="brand" href="[% c.uri_for('/') %]">Almox</a>
 
           [% IF c.user_exists %]
           <ul class="nav">
-            <li [% IF c.controller == c.controller('Root') %]class='active'[% END %]><a href="[% c.uri_for('/') %]">Início</a></li>
+            <li [% IF c.controller == c.controller('Root') %] class="active"[% END %]><a href="[% c.uri_for('/') %]">Início</a></li>
+
             <li class="dropdown[% IF c.controller == c.controller('Itens') %] active[% END %]">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Itens<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -72,15 +74,19 @@
               </ul>
             </li>
 
-            <li [% IF c.controller == c.controller('Estoque') %] class='active'[% END %]><a href="[% c.uri_for('/estoque') %]">Estoque</a></li>
+            <li [% IF c.controller == c.controller('Estoque') %] class="active"[% END %]><a href="[% c.uri_for('/estoque') %]">Estoque</a></li>
 
+            [% IF c.check_user_roles('administrador') %]
+            <li [% IF c.controller == c.controller('Usuario') %] class="active"[% END %]><a href="#">Usuários</a></li>
+            [% END %]
 
           </ul>
+
           <ul class='nav pull-right'>
             <li class="dropdown[% IF c.controller == c.controller('Usuario') %] active[% END %]">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuário ([% c.user.nome_de_usuario %])<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-user icon-white'></i> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="[% c.uri_for('/usuario/info') %]"><i class='icon-user'></i> Info</a></li>
+                <li><a href="[% c.uri_for('/usuario/info') %]"><i class='icon-user'></i>Usuário ([% c.user.nome_de_usuario %])</a></li>
                 <li><a href="[% c.uri_for('/auth/logout') %]"><i class='icon-off'></i> Logout</a></li>
               </ul>
             </li>
@@ -88,9 +94,11 @@
           [% END %]
         </div>
       </div>
-    </div>
 
-    <div class='container-fluid'>
+    </div> <!-- /div class="navbar" -->
+
+    <div class="container-fluid">
+
       [% IF !c.user_exists AND template.name.match('auth/login.tt') %]
 
       <div class='row-fluid'>
@@ -143,7 +151,9 @@
           <small>2011-2012 <a href='http://astux.com.br'>Astux</a> &mdash; software livre licenciado sob GPLv3</small>
         </p>
       </div>
-    </div>
+
+    </div> <!-- /div class="container-fluid" -->
+
   </body>
 </html>
 

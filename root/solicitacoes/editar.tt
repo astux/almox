@@ -1,5 +1,5 @@
 <div class='page-header'>
-<h2>[% title_part %]</h2>
+  <h2>[% title_part %]</h2>
 </div>
 
 [% form %]

@@ -1,0 +1,2 @@
+Não esquecer de configurar o PostgreSQL para:
+datestyle 'european, iso'

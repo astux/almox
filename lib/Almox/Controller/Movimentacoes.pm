@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use utf8;
 use Data::Dumper;
+use DateTime;
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 
 sub object :Chained('/') :PathPart('movimentacoes') :CaptureArgs(1) {
@@ -82,28 +83,10 @@ sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('moviment
     $c->stash->{title_part} = 'Edição de Movimentação';
 }
 
-sub preenche_setores_origem_form {
-    my ($self, $c, $form) = @_;
-
-    my @setores = $c->model('DB::Setor')->search({ ativacao => 1})->all;
-
-    my @setores_options;
-    push @setores_options, [undef, 'Nenhum'];
-
-    foreach (@setores) {
-        push @setores_options, [$_->id, $_->nome];
-    }
-
-    my $element = $form->get_element({ name => 'origem_setor_id'});
-    $element->options(\@setores_options);
-}
-
 sub adicionar :Local :Args(0) :FormConfig {
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
-
-    $self->preenche_setores_origem_form($c, $form);
 
     $c->stash(title_part => 'Adição de Movimentação');
 }
@@ -126,7 +109,6 @@ sub salvar :Local :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
                                                                           });
             }
 
-            use DateTime;
             my $datetime = DateTime->now->set_time_zone('America/Fortaleza');
             $movimentacao->t_updated($datetime->dmy("/") . " " . $datetime->hms(":"));
 

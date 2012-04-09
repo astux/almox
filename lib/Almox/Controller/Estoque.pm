@@ -27,6 +27,21 @@ sub index :Path :Args(0) :FormConfig {
               pager => $estoque_rs->pager);
 }
 
+sub index_pdf :Local :Args(0) {
+    my ($self, $c) = @_;
+
+    my $estoque_rs = $c->model('DB::Estoque');
+
+    $c->stash(estoque => [$estoque_rs->all]);
+
+    $c->stash->{wkhtmltopdf} = {
+                                template    => 'estoque/index_pdf.tt',
+                                page_size   => 'a4'
+                               };
+
+    $c->forward('View::Wkhtmltopdf');
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

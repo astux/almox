@@ -55,7 +55,9 @@ __PACKAGE__->config(
                                     hide_index => 0,
                                     hide_home => 0,
                                     labels => {
-                                               '/' => 'Início'
+                                               '/' => 'Início',
+                                               '/movimentacoes' => 'Movimentações',
+                                               '/solicitacoes' => 'Solicitações'
                                               }
                                    },
                     'Controller::HTML::FormFu' => {

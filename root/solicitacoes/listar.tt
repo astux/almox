@@ -9,7 +9,7 @@
   <tr>
     <th>Data</th>
     <th>Setor de Destino</th>
-    <th>Itens</th>
+    <th>Itens (quantidade)</th>
     <th>Status</th>
     <th>Solicitante</th>
     <th>Ações</th>
@@ -21,10 +21,17 @@
   <tr>
     <td>[% solicitacao.t_updated.dmy('/') _ ' ' _ solicitacao.t_updated.hms(':') %]</td>
     <td>[% solicitacao.setor.nome %]</td>    
-    <td>Itens</td>
+    <td>
+      [% itens_contador = 0 %]
+
+      [% FOREACH solicitacao_item IN solicitacao.solicitacoes_itens %]
+      [% IF itens_contador > 0 %]&ndash;[% END %]
+      [% itens_contador = itens_contador + 1 %]
+      [% solicitacao_item.item.nome _ ' (' _ solicitacao_item.quantidade _ ')' %]
+      [% END %]
+    </td>
     <td>[% solicitacao.solicitacao_status.nome %]</td>
-    <td>[% solicitacao.solicitacao_status.nome %]</td>
-    
+    <td>[% solicitacao.usuario.nome %]</td>
     <td>
       <a href="[% c.uri_for('/solicitacoes', solicitacao.id) %]">Ver</a>,
       <a href="[% c.uri_for('/solicitacoes', solicitacao.id, 'editar') %]">Editar</a>

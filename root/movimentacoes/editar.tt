@@ -3,3 +3,9 @@
 </div>
 
 [% form %]
+
+<script type='text/javascript'>
+
+[% INCLUDE 'movimentacoes/repeticao_itens.js' %]
+
+</script>

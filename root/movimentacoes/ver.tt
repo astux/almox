@@ -2,7 +2,7 @@
   <h2>[% title_part %]</h2>
 </div>
 
-<dl>
+<dl class="dl-horizontal">
   <dt>Setor de Origem</dt>
   <dd>[% IF object.setor_origem.nome; object.setor_origem.nome; ELSE; '&mdash;'; END; %]</dd>
   <dt>Setor de Destino</dt>
@@ -14,7 +14,7 @@
 [% FOREACH mi IN object.movimentacoes_itens %]
 <fieldset>
   <legend>Item</legend>
-  <dl>
+  <dl class="dl-horizontal">
     <dt>Nome</dt>
     <dd>[% mi.item.nome %]</dd>
     <dt>Quantidade</dt>

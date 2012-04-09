@@ -1,16 +1,10 @@
 <h2>[% title_part %]</h2>
 
-<p>
-  <span>Código</span>
-  <span>[% object.id %]</span>
-</p>
-
-<p>
-  <span>Nome</span>
-  <span>[% object.nome %]</span>
-</p>
-
-<p>
-  <span>Ativação</span>
-  <span>[% IF object.ativacao == 1; 'Sim'; ELSIF object.ativacao == 0; 'Não'; END %]</span>
-</p>
+<dl class="dl-horizontal">
+  <dt>Código</dt>
+  <dd>[% object.id %]</dd>
+  <dt>Nome</dt>
+  <dd>[% object.nome %]</dd>
+  <dt>Ativação</dt>
+  <dd>[% IF object.ativacao == 1; 'Sim'; ELSIF object.ativacao == 0; 'Não'; END %]</dd>
+</dl>

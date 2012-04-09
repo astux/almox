@@ -1,25 +1,14 @@
-body { font-size: 90%; font-family: helvetica, sans-serif; background: #eee; }
-table { font-size: 100% }
-
-div {
-    border: 0px solid red;
-    padding: 0px;
+body,p,input,select,label,textarea { font-family: sans-serif; }
+.page-footer {
+  padding-top: 17px;
+  margin: 18px 0;
+  border-top: 1px solid #eeeeee;
 }
+.error_message { color: red; display: block; }
 
-#menu { float: left; background: #ddd; width: 15em}
-#content { margin-left: 17em; }
 
-#msgs_ok { background: #9d9 }
-#msgs_erro { background: #d99 }
-#msgs_aviso { background: #ed0 }
-
-a:link, a:visited, a:active, a:hover { color: blue; text-decoration: none }
-
-div.label label { float: left; width: 7em; }
-
-#breadcrumbs li { display: inline; padding-right: 1em; font-size: 110%; }
-#breadcrumbs ul { padding-left: 2em; }
-
-tr:nth-of-type(even) { background: #ddd }
-
-#footer { clear: both }
+i.brand {
+  background: url('../img/almox.png') no-repeat 50% 40%;
+  width: 0px;
+  height: 20px;
+}

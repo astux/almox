@@ -74,7 +74,11 @@ sub listar :Chained('base') :PathPart('listar') :Args(0) :FormConfig {
 
     my $solicitacoes_rs = $c->stash->{resultset}
       ->search_rs(undef,
-                  { "order_by" => "id", rows => $entries_per_page })
+                  {
+                   prefetch => [qw/setor solicitacao_status usuario/],
+                   "order_by" => "me.id",
+                   rows => $entries_per_page
+                  })
         ->page($page);
 
     $c->stash(solicitacoes => [$solicitacoes_rs->all],
@@ -103,14 +107,18 @@ sub salvar :Chained('base') PathPart('salvar') FormConfig('solicitacoes/formular
         }
 
         eval {
-            $form->model->update($solicitacao);
+            $c->model('DB::Solicitacao')->result_source->schema->txn_do(
+                                                                        sub {
+                                                                            $form->model->update($solicitacao);
+                                                                        }
+                                                                       );
+
+            $c->flash->{msg_ok} = 'Solicitação salva.';
+            $c->res->redirect($c->uri_for('/solicitacoes/listar'));
         } or do {
             $c->flash->{msg_erro} = 'Erro na inserção. ' . $@;
-            $c->res->redirect($c->uri_for('/solicitacoes/listar'));
+            $c->stash->{template} = 'solicitacoes/adicionar.tt';
         };
-
-        $c->flash->{msg_ok} = 'Solicitação salva.';
-        $c->res->redirect($c->uri_for('/solicitacoes/listar'));
     } else {
         $c->stash->{template} = 'solicitacoes/adicionar.tt';
         $c->flash->{msg_erro} = 'Erro na inserção.'
