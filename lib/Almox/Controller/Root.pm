@@ -51,14 +51,6 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    my $movimentacoes_itens = $c->model('DB::MovimentacaoItem')->search_rs(undef,
-                                                                           {
-                                                                            prefetch => [ { 'movimentacao' => [qw/setor_destino setor_origem usuario fornecedor/] }, 'item'  ],
-                                                                            rows => 10
-                                                                           });
-
-    $c->stash(movimentacoes_itens => [$movimentacoes_itens->all]);
 }
 
 =head2 default

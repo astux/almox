@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h2>[% title_part %]</h2>
+</div>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Nome de Usuário (login)</th>
+      <th>Nome</th>
+      <th>Perfis</th>
+      <th>Ativação</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  [% FOREACH usuario IN usuarios %]
+  <tr>
+    <td>[% usuario.nome_de_usuario %]</td>
+    <td>[% usuario.nome %]</td>
+    <td>--</td>
+    <td>
+      [% IF usuario.ativacao == 1 %]<span class='label label-success'>Sim</span>
+      [% ELSIF usuario.ativacao == 0 %]<span class='label label-important'>Não</span>[% END %]
+    </td>
+    <td>
+      <a href="[% c.uri_for('/usuarios', usuario.id) %]">Ver</a>,
+      <a href="[% c.uri_for('/usuarios', usuario.id, 'editar') %]">Editar</a>
+    </td>
+  </tr>
+  [% END %]
+  </tbody>
+</table>
+
+[% INCLUDE paginacao.tt %]
