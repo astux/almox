@@ -54,7 +54,6 @@ sub listar :Chained('base') :PathPart('listar') :Args(0) :FormConfig {
 
     $c->stash(itens => [$itens_rs->all],
               pager => $itens_rs->pager,
-              #q => $c->req->params->{'q'}, # Por que pôr 'q' no stash?
               title_part => 'Listagem de Itens');
 }
 
