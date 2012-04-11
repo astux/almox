@@ -1,8 +1,6 @@
 ---
 indicator: submit
 action: /fornecedores/salvar
-attributes:
-  class: well
 elements:
     - type: Hidden
       name: id
@@ -19,8 +17,8 @@ elements:
       name: ativacao
       label: Ativação
       options:
-      - ['1', 'Ativado']
-      - ['0', 'Desativado']
+        - ['1', 'Ativado']
+        - ['0', 'Desativado']
       container_tag:
 
     - type: Block
@@ -32,4 +30,4 @@ elements:
           value: Enviar
           container_tag:
           attributes:
-            class: btn
+            class: btn btn-primary

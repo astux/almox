@@ -72,7 +72,7 @@ sub listar :Local :Args(0) :FormConfig {
 
 
 
-sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
+sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('movimentacoes/formulario.yml') {
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
@@ -83,7 +83,7 @@ sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('moviment
     $c->stash->{title_part} = 'Edição de Movimentação';
 }
 
-sub adicionar :Local :Args(0) :FormConfig {
+sub adicionar :Local :Args(0) :FormConfig('movimentacoes/formulario.yml') {
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
@@ -91,7 +91,7 @@ sub adicionar :Local :Args(0) :FormConfig {
     $c->stash(title_part => 'Adição de Movimentação');
 }
 
-sub salvar :Local :Args(0) :FormConfig('movimentacoes/adicionar.yml') {
+sub salvar :Local :Args(0) :FormConfig('movimentacoes/formulario.yml') {
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};

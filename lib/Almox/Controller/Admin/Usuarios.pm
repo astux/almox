@@ -1,4 +1,4 @@
-package Almox::Controller::Usuarios;
+package Almox::Controller::Admin::Usuarios;
 use Moose;
 use namespace::autoclean;
 use utf8;
@@ -14,13 +14,13 @@ sub auto :Private {
     }
 }
 
-sub base :Chained('/') :PathPart('usuarios') :CaptureArgs(0) {
+sub base :Chained('/') :PathPart('admin/usuarios') :CaptureArgs(0) {
     my ($self, $c) = @_;
 
     $c->stash->{resultset} = $c->model('DB::Usuario');
 }
 
-sub object :Chained('/') :PathPart('') :CaptureArgs(1) {
+sub object :Chained('base') :PathPart('') :CaptureArgs(1) {
     my ($self, $c, $id) = @_;
 
     eval {
@@ -34,7 +34,7 @@ sub object :Chained('/') :PathPart('') :CaptureArgs(1) {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->res->redirect($c->uri_for('/usuarios/listar'));
+    $c->res->redirect($c->uri_for('/admin/usuarios/listar'));
 }
 
 sub listar :Chained('base') :PathPart('listar') :Args(0) :FormConfig {
@@ -57,17 +57,22 @@ sub listar :Chained('base') :PathPart('listar') :Args(0) :FormConfig {
 
 sub ver :Chained('object') :PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
+
+    $c->stash(usuario => $c->stash->{object},
+              title_part => 'Visualização de Usuário');
 }
 
-sub adicionar :Local :Args(0) {
+sub adicionar :Local :Args(0) :FormConfig('admin/usuarios/formulario.yml') {
+    my ( $self, $c ) = @_;
+
+    $c->stash(title_part => 'Adição de Usuário');
+}
+
+sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('admin/usuarios/formulario.yml') {
     my ( $self, $c ) = @_;
 }
 
-sub editar :Chained('object') :PathPart('editar') :Args(0) :FormConfig('usuarios/formulario.yml') {
-    my ( $self, $c ) = @_;
-}
-
-sub salvar :Chained('base') :PathPart('salvar') :Args(0) :FormConfig('usuarios/formulario.yml') {
+sub salvar :Chained('base') :PathPart('salvar') :Args(0) :FormConfig('admin/usuarios/formulario.yml') {
     my ( $self, $c ) = @_;
 }
 

@@ -1,8 +1,6 @@
 ---
 indicator: submit
 action: /setores/salvar
-attributes:
-  class: well
 elements:
     - type: Hidden
       name: id
@@ -32,4 +30,4 @@ elements:
           value: Enviar
           container_tag:
           attributes:
-            class: btn
+            class: btn btn-primary

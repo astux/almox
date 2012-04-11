@@ -77,7 +77,7 @@
             <li [% IF c.controller == c.controller('Estoque') %] class="active"[% END %]><a href="[% c.uri_for('/estoque') %]">Estoque</a></li>
 
             [% IF c.check_user_roles('administrador') %]
-            <li [% IF c.controller == c.controller('Usuario') %] class="active"[% END %]><a href="#">Usuários</a></li>
+            <li [% IF c.controller == c.controller('Usuario') %] class="active"[% END %]><a href="[% c.uri_for('/admin/usuarios') %]">Usuários</a></li>
             [% END %]
 
           </ul>

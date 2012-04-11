@@ -1,8 +1,6 @@
 ---
 indicator: submit
 action: /itens/salvar
-attributes:
-  class: well
 elements:
     - type: Hidden
       name: id
@@ -39,4 +37,4 @@ elements:
           value: Enviar
           container_tag:
           attributes:
-            class: btn
+            class: btn btn-primary

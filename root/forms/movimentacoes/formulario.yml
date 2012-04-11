@@ -1,7 +1,5 @@
 ---
 indicator: submit
-attributes:
-  class: well
 action: /movimentacoes/salvar
 elements:
   - type: Hidden
@@ -58,7 +56,7 @@ elements:
       - type: Fieldset
         legend: Item
         attributes:
-          class: repeatable
+          class: repeatable well
 
         elements:
 
@@ -102,7 +100,7 @@ elements:
             name: remover_item
             value: Remover Este Item
             attributes:
-              class: btn
+              class: btn btn-small
 
   - type: Button
     name: adicionar_item
@@ -121,4 +119,4 @@ elements:
         value: Enviar
         container_tag:
         attributes:
-          class: btn
+          class: btn btn-primary

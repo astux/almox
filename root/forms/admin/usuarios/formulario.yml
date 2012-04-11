@@ -1,0 +1,30 @@
+---
+indicator: submit
+action: admin/usuarios/salvar
+elements:
+  - type: Hidden
+    name: id
+
+  - type: Text
+    name: nome_de_usuario
+    label: Nome de Usuário
+    container_tag:
+
+  - type: Text
+    name: nome
+    label: Nome
+    container_tag:
+
+  - type: Select
+    name: ativacao
+    label: Ativação
+    container_tag:
+    options:
+      - ['1', 'Ativado']
+      - ['0', 'Desativado']
+
+  - type: Submit
+    value: Enviar
+    container_tag:
+    attributes:
+      class: btn
